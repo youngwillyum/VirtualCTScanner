@@ -517,7 +517,7 @@ radius = get(handles.RadiusEditField, 'Value');
 circleValue = get(handles.CircleSlider, 'Value');
 rectValue = get(handles.RectangleSlider, 'Value');
 phantomSize = round(get(handles.PhantomMatrixSize, 'Value'));
-GenerateBasicPhantoms(handles);
+GenerateBasicPhantomsF(handles);
 
 
 % --- Executes on slider movement.
