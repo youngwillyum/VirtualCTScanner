@@ -21,12 +21,15 @@ phantomType = 'circular'; % Options: 'circular', 'rectangular'
 phantomSize = 200; % Size of the phantom in cm
 
 circleStruct1SI = 0.5; % Value for circular structures
+circleStruct2SI = 0.2
+circleStruct3SI = 0.8
+circleStruct4SI = 0.6
 
 rectangleSI = 0.5; % Value for rectangular structure
 
 if strcmp(phantomType, 'circular')
 
-    phantom = generateCircularPhantom(matrixSize, phantomSize, circleStruct1SI);
+    phantom = generateCircularPhantom(matrixSize, phantomSize, circleStruct1SI, circleStruct2SI, circleStruct3SI, circleStruct4SI);
 
 else
 
@@ -97,7 +100,7 @@ title('Signal Intensity Profiles');
 
 % Function to generate circular phantom
 
-function phantom = generateCircularPhantom(matrixSize, phantomSize, value)
+function phantom = generateCircularPhantom(matrixSize, phantomSize, value1, value2, value3, value4)
 
     [x,y] = meshgrid(-matrixSize/2:matrixSize/2-1,-matrixSize/2:matrixSize/2-1);
 
@@ -106,19 +109,16 @@ function phantom = generateCircularPhantom(matrixSize, phantomSize, value)
     shrunk = ~conv2(double(~circle), ones(3), 'same');
 
     % Create mask with circle structures with different centers and SI values
-    centerOffsetsX = [-50 0 50];
-    centerOffsetsY = [-50 0 50];
+    centerOffsetsX = [-150 -100 -180 -120];
+    centerOffsetsY = [-120 -100 -180 -160];
 
-    circleStruct2SI = 1.0;
-    circleStruct3SI = 0.8;
-    circleStruct4SI = 0.6;
-    circleStructsSI = [circleStruct2SI circleStruct3SI circleStruct4SI];
+    circleStructsSI = [value1 value2 value3 value4];
 
     mask = zeros(size(circle));
     for i=1:numel(centerOffsetsX)
         centerX = matrixSize/2 + centerOffsetsX(i);
         centerY = matrixSize/2 + centerOffsetsY(i);
-        mask = mask + (sqrt((x-centerX).^2 + (y-centerY).^2) < 30) * circleStructsSI(i);
+        mask = mask + (sqrt((x-centerX).^2 + (y-centerY).^2) < 20) * circleStructsSI(i);
     end
 
     phantom = (circle - shrunk) + mask;
