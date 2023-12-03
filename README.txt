@@ -3,7 +3,8 @@
 This MATLAB code simulates the operation of a virtual CT scanner. It performs various tasks such as generating a test/validation phantom, acquiring data, reconstructing an image using the filtered backprojection algorithm, performing image analysis, and displaying the results.
 ## How to run  
 
-Open scanner.m in matlab, click the run button. 
+Open scanner.m in matlab, click the run button for non Guide version (fully working, must chang params in code) 
+Open scannerf.m in matlab 2021b, and use Phantom_ScannerGui_export to run the guide version. 
 
 ## Parameters
 
@@ -44,3 +45,5 @@ Finally, the code displays several plots to visualize the results:
 Note: The code includes several helper functions to perform different tasks, such as generating phantoms, calculating ray attenuation, calculating signal intensity and contrast, etc.
 
 Please refer to the code comments for more details on each function and its purpose.
+
+Bugs: Currently, scanner only viable file to produce results. 
