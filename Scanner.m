@@ -12,6 +12,8 @@ sourceDistance = 5; % Distance between source and center of scanner in cm
 
 rotationStepAngle = 1.4; % Step angle of detector rotation in degrees
 
+acquisitionTimePerRotation = .1; % Duration of data acquisition per rotation in seconds
+
 % Generate test/validation phantom
 
 phantomType = 'circular'; % Options: 'circular', 'rectangular'
@@ -39,17 +41,19 @@ sinogram = zeros(numDetectors, matrixSize);
 % Perform data acquisition (simulate scanner operation)
 
 for i=1:numDetectors
-
+    
     detectorAngle = (i-1) * rotationStepAngle;
-
+    
     % Calculate attenuation for each ray passing through the phantom
-
+    
     rayAttenuation = calculateRayAttenuation(phantom, matrixSize, numDetectors, detectorDistance, sourceDistance, detectorAngle);
-
+    
     % Store acquired data in sinogram array
-
+    
     sinogram(i,:) = rayAttenuation;
-
+    
+    pause(acquisitionTimePerRotation); % Add a pause to simulate acquisition time per rotation
+    
 end
 
 % Perform image reconstruction using filtered backprojection algorithm
