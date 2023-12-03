@@ -14,17 +14,11 @@ rotationStepAngle = 1.4; % Step angle of detector rotation in degrees
 
 % Generate test/validation phantom
 
-phantomType = 'rectangular'; % Options: 'circular', 'rectangular'
+phantomType = 'circular'; % Options: 'circular', 'rectangular'
 
 phantomSize = 200; % Size of the phantom in cm
 
 circleStruct1SI = 0.5; % Value for circular structures
-
-circleStruct2SI = 1.0;
-
-circleStruct3SI = 0.8;
-
-circleStruct4SI = 0.6;
 
 rectangleSI = 0.5; % Value for rectangular structure
 
@@ -99,7 +93,7 @@ title('Signal Intensity Profiles');
 
 % Function to generate circular phantom
 
-function phantom = generateCircularPhantom(matrixSize, phantomSize, phantomValue1)
+function phantom = generateCircularPhantom(matrixSize, phantomSize, value)
 
     [x,y] = meshgrid(-matrixSize/2:matrixSize/2-1,-matrixSize/2:matrixSize/2-1);
 
@@ -110,6 +104,10 @@ function phantom = generateCircularPhantom(matrixSize, phantomSize, phantomValue
     % Create mask with circle structures with different centers and SI values
     centerOffsetsX = [-50 0 50];
     centerOffsetsY = [-50 0 50];
+
+    circleStruct2SI = 1.0;
+    circleStruct3SI = 0.8;
+    circleStruct4SI = 0.6;
     circleStructsSI = [circleStruct2SI circleStruct3SI circleStruct4SI];
 
     mask = zeros(size(circle));
