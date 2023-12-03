@@ -90,14 +90,23 @@ end
 function rayAttenuation = calculateRayAttenuation(phantom,matrixSize,numDetectors,detectorDistance,sourceDistance,detectorAngle)
     rayAttenuation = zeros(1,matrixSize);
     for i=1:matrixSize
-        x = (i-matrixSize/2-1) * detectorDistance;
-        y = sourceDistance;
-        rotatedX = x*cosd(detectorAngle) - y*sind(detectorAngle);
-        rotatedY = x*sind(detectorAngle) + y*cosd(detectorAngle);
-        pixelValue = interp2(phantom, rotatedX, rotatedY);
-        rayAttenuation(i) = exp(-pixelValue);
+            x = (i-matrixSize/2-1) * detectorDistance;
+            y = sourceDistance;
+            rotatedX = x*cosd(detectorAngle) - y*sind(detectorAngle);
+            if rotatedX < 0
+                rotatedX = rotatedX + ma
+            end
+            rotatedY = x*sind(detectorAngle) + y*cosd(detectorAngle);
+            if rotatedY < 0
+                rotatedY = rotatedY * -1
+            end
+            pixelValue = interp2(phantom, rotatedX, rotatedY);
+            rayAttenuation(i) = pixelValue; %exp(-pixelValue);
     end
 end
+%% 
+%% 
+
 
 % Function to perform image reconstruction using filtered backprojection
 function reconstructedImage = reconstructImage(sinogram,matrixSize,numDetectors,detectorDistance,sourceDistance,rotationStepAngle)
